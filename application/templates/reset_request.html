@@ -1,0 +1,50 @@
+{% extends "layout-extra.html" %}
+
+{% block content %}
+
+<div class="content-section">
+    <div class=" h-100 d-flex justify-content-center align-items-center">
+        <main class="page">
+            <section class="clean-block about-us">
+                <div class="container">
+                    <div class="block-heading">
+                        <h2 class="text-info">Forgot Password</h2>
+                        <p>Let's help you reset it!</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <form method="POST" action="">
+                            {{ form.hidden_tag() }}
+
+                            <fieldset class="form-group">
+                                <div class="form-group">
+                                    {% if form.email.errors %}
+                                        {{ form.email(class="form-control form-control-lg is-invalid", placeholder="Email") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.email.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                    {{ form.email(class="form-control form-control-lg", placeholder="Email") }}
+                                    {% endif %}
+                                </div>
+                            </fieldset>
+                            <div class=" h-100 d-flex justify-content-center align-items-center">
+                                <div class="form-group justify-content-center">
+                                    {{ form.submit(class="btn btn-primary", style="background-color: rgb(122,0,217); width: 219px;height: 43px;margin-left: -2%;") }}
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+<br/>
+
+{% endblock %}

@@ -1,0 +1,8 @@
+.clean-block .block-heading h1, .clean-block .block-heading h2, .clean-block .block-heading h3 {
+    margin-bottom: 1.2rem;
+    /*color: rgb(255,0,0);*/
+  }
+  
+  .text-info {
+    color: #7a00d9!important;
+  }

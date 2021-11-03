@@ -1,0 +1,65 @@
+{% extends "layout-extra.html" %}
+
+{% block content %}
+
+<div class="content-section">
+    <div class=" h-100 d-flex justify-content-center align-items-center">
+        <main class="page">
+            <section class="clean-block about-us">
+                <div class="container">
+                    <div class="block-heading">
+                        <h2 class="text-info">Verified!</h2>
+                        <p>Choose a new password now!</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <form method="POST" action="">
+                            {{ form.hidden_tag() }}
+
+                            <fieldset class="form-group">
+                                <small id="passwordHelpBlock" class="form-text text-muted">
+                                    At least 8 characters, one number, one uppercase, and one special character.
+                                </small>
+                                <div class="form-group">
+                                    {% if form.password.errors %}
+                                        {{ form.password(class="form-control form-control-lg is-invalid", placeholder="Password") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.password.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                    {{ form.password(class="form-control form-control-lg", placeholder="Password") }}
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    {% if form.confirm_password.errors %}
+                                        {{ form.confirm_password(class="form-control form-control-lg is-invalid", placeholder="Confirm password") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.confirm_password.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                    {{ form.confirm_password(class="form-control form-control-lg", placeholder="Confirm password") }}
+                                    {% endif %}
+                                </div>
+                            </fieldset>
+                            <div class=" h-100 d-flex justify-content-center align-items-center">
+                                <div class="form-group justify-content-center">
+                                    {{ form.submit(class="btn btn-primary", style="background-color: rgb(122,0,217); width: 200px;height: 43px;margin-left: -2%;") }}
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+<br/>
+
+{% endblock %}

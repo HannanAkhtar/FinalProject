@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<article class="media content-section">
+    <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + listing.author.image_file) }}">
+    <div class="media-body">
+      <div class="article-metadata">
+        <a class="mr-2" href="{{ url_for('user_listings', username=listing.author.username) }}">{{ listing.author.username }}</a>
+        <small class="text-muted">{{ listing.date_posted.strftime('%Y-%m-%d') }}</small>
+        {% if listing.author == current_user %}
+          <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('update_listing', listing_id=listing.id) }}">Update</a>
+            <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+          </div>
+        {% endif %}
+      </div>
+      <h2 class="article-title">{{ listing.title }}</h2>
+      {% for image in images %}
+        {% if image.listing_id == listing.id %}
+          <img src="{{ url_for('static', filename='listings_pics/' + image.image_file) }}">
+        {% endif %}
+      {% endfor %}
+      <div class="container mt-4">
+        <div class="row mt-2 mb-2">
+          <div class="col-md-6"> <b> Number of bedrooms: </b> {{ listing.beds }} </div>
+          <div class="col-md-6"> <b> Number of bathrooms: </b> {{ listing.baths }} </div>
+        </div>
+        <div class="row mt-2 mb-2">
+          <div class="col-md-6"> <b> Price: </b> {{ listing.price }} </div>
+          <div class="col-md-6"> <b> Address: </b> {{ listing.address }} </div>
+        </div>
+        <div class="row mt-4 mb-4">
+          <div class="col-md-12"> <b> Description: </b> {{ listing.description }} </div>
+        </div>
+      </div>
+    </div>
+</article>
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Are you sure you want to delete this listing?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <form action="{{ url_for('delete_listing', listing_id=listing.id) }}" method="POST">
+          <input class="btn btn-danger" type="submit" value="Delete">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

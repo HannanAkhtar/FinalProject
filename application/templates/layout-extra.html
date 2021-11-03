@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Home - Yakeem</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='smoothproducts.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='untitled.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='simple-line-icons.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
+        <div class="container"><a class="navbar-brand logo" href="{{ url_for('main.home') }}">Yakeem</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse"
+                id="navcol-1">
+                <ul class="nav navbar-nav ml-auto">
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item" role="presentation">
+                        {% if g.search_form %}
+                            <form class="navbar-form navbar-left" method="get" action="{{ url_for('listings.search') }}">
+                                <div class="form-group">
+                                    {{ g.search_form.q(size=20, class='form-control', placeholder=g.search_form.q.label.text) }}
+                                 </div>
+                            </form>
+                        {% endif %}
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" href="{{ url_for('users.messages') }}">
+                            Messages
+                            {% set new_messages = current_user.new_messages() %}
+                            {% if new_messages %}
+                            <span id="message_count" class="badge"style="visibility: {% if new_messages %} visible {% else %} hidden {% endif %};">
+                                {{ new_messages }}
+                            </span>
+                            {% endif %}
+                        </a>
+                    </li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="{{ url_for('listings.new_listing') }}">Create Listing</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="{{ url_for('users.account') }}">My Account</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="{{ url_for('users.logout') }}">Logout</a></li>
+                    {% else %}
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="{{ url_for('users.register') }}">Sign up</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="{{ url_for('users.login') }}">Login</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <br/> <br/>
+
+    <main role="main" class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='smoothproducts.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='theme.js') }}"></script>
+    
+</body>
+
+</html>

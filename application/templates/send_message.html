@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1> Send message to {{ recipient }} </h1>
+<div class="content-section">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <div class="form-group">
+                {% if form.message.errors %}
+                    {{ form.message(class="form-control form-control-lg is-invalid", placeholder="Your Message") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.message.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.message(class="form-control form-control-lg", placeholder="Your Message") }}
+                {% endif %}
+            </div>
+        </fieldset>
+        <div class=" h-100 d-flex justify-content-center align-items-center">
+            <div class="form-group justify-content-center">
+                {{ form.submit(class="btn btn-primary", style="background-color: rgb(122,0,217); width: 170px;height: 43px;margin-left: -2%;") }}
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock content %}

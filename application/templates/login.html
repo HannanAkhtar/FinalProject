@@ -1,0 +1,74 @@
+{% extends "layout-extra.html" %}
+
+{% block content %}
+
+<div class="content-section">
+    <div class=" h-100 d-flex justify-content-center align-items-center">
+        <main class="page">
+            <section class="clean-block about-us">
+                <div class="container">
+                    <div class="block-heading">
+                        <h2 class="text-info">Log In</h2>
+                        <p>We're glad to welcome you back!</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <form method="POST" action="">
+                            {{ form.hidden_tag() }}
+
+                            <fieldset class="form-group">
+                                <div class="form-group">
+                                    {% if form.email.errors %}
+                                        {{ form.email(class="form-control form-control-lg is-invalid", placeholder="Email") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.email.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                    {{ form.email(class="form-control form-control-lg", placeholder="Email") }}
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    {% if form.password.errors %}
+                                        {{ form.password(class="form-control form-control-lg is-invalid", placeholder="Password") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.password.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                    {{ form.password(class="form-control form-control-lg", placeholder="Password") }}
+                                    {% endif %}
+                                </div>
+                                <div class="form-check">
+                                    {{ form.remember(class="form-check-input") }}
+                                    {{ form.remember.label(class="form-check-label") }}
+                                </div>
+                            </fieldset>
+                            <div class=" h-100 d-flex justify-content-center align-items-center">
+                                <div class="form-group justify-content-center">
+                                    {{ form.submit(class="btn btn-primary", style="background-color: rgb(122,0,217); width: 119px;height: 43px;margin-left: -2%;") }}
+                                </div>
+                                <small class="text-muted ml-2">
+                                    <a href="{{ url_for('users.reset_request') }}">Forgot Password?</a>
+                                </small>
+                            </div>
+                        </form>
+                        <div class="border-top pt-3 mt-3 text-center">
+                            <small class="text-muted">
+                                Are You New Here? <a class="ml-2" href="{{ url_for('users.register') }}"> Sign Up! </a>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+<br/>
+
+{% endblock %}
